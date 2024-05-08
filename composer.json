@@ -52,7 +52,9 @@
   },
   "extra": {
     "laravel": {
-      "providers": [],
+      "providers": [
+        "Ludo237\\Nanoide\\NanoideServiceProvider"
+      ],
       "aliases": {}
     }
   }
