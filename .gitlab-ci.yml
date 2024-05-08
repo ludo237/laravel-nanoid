@@ -96,14 +96,14 @@ pest:
     - XDEBUG_MODE=coverage ./vendor/bin/pest --coverage --coverage-cobertura=./reports/cobertura.xml
   coverage: /^\s*Cov:\s*\d+\.\d+?%$/
 
-php-cs-fixer:
+pint:
   stage: tests
   image: registry.gitlab.com/6go/dx/docker/php:8.3
   needs:
     - job: composer::install
       artifacts: true
   artifacts:
-    expose_as: 'PHP-CS-Fixer artifact'
+    expose_as: 'Pint artifact'
     paths:
       - reports
     expire_in: 1 days
@@ -111,7 +111,7 @@ php-cs-fixer:
   before_script:
     - mkdir -p reports
   script:
-    - ./vendor/bin/php-cs-fixer --format=json check
+    - ./vendor/bin/pint --format=json
 
 git::release:
   stage: .post
