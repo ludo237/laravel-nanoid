@@ -1,14 +1,13 @@
 {
-  "name": "ludo237/laravel-nanoide",
+  "name": "ludo237/laravel-nanoid",
   "description": "Generates nano id for Laravel",
   "keywords": [
     "laravel",
-    "nano-id",
-    "naonid",
+    "naon-id",
     "laravel-package",
     "open-source"
   ],
-  "homepage": "https://gitlab.com/ludo237/laravel-nanoide",
+  "homepage": "https://gitlab.com/ludo237/laravel-nanoid",
   "license": "MIT",
   "authors": [
     {
