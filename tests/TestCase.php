@@ -1,8 +1,8 @@
 <?php
 
-namespace Ludo237\Nanoide\Tests;
+namespace Ludo237\Nanoid\Tests;
 
-use Ludo237\Nanoide\NanoideServiceProvider;
+use Ludo237\Nanoid\NanoideServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase

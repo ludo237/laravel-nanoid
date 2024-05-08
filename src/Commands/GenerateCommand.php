@@ -1,6 +1,6 @@
 <?php
 
-namespace Ludo237\Nanoide\Commands;
+namespace Ludo237\Nanoid\Commands;
 
 use Illuminate\Console\Command;
 use Ludo237\Nanoid\Client;

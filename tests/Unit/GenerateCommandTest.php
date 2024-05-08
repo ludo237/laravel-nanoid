@@ -1,8 +1,8 @@
 <?php
 
-namespace Ludo237\Nanoide\Tests\Unit;
+namespace Ludo237\Nanoid\Tests\Unit;
 
-use Ludo237\Nanoide\Commands\GenerateCommand;
+use Ludo237\Nanoid\Commands\GenerateCommand;
 
 describe('GenerateCommand', function () {
     it('foo', function () {

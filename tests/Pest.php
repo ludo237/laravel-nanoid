@@ -1,6 +1,6 @@
 <?php
 
-use Ludo237\Nanoide\Tests\TestCase;
+use Ludo237\Nanoid\Tests\TestCase;
 
 uses(TestCase::class)
     ->in('Unit');

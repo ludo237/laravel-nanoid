@@ -32,12 +32,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Ludo237\\Nanoide\\": "src/"
+      "Ludo237\\Nanoid\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Ludo237\\Nanoide\\Tests\\": "tests"
+      "Ludo237\\Nanoid\\Tests\\": "tests"
     }
   },
   "minimum-stability": "stable",
@@ -52,7 +52,7 @@
   "extra": {
     "laravel": {
       "providers": [
-        "Ludo237\\Nanoide\\NanoideServiceProvider"
+        "Ludo237\\Nanoid\\NanoideServiceProvider"
       ],
       "aliases": {}
     }
