@@ -11,4 +11,4 @@ phpstan:
 	./vendor/bin/phpstan analyse --level=max src
 
 pint:
-	./vendor/bin/pint src
+	./vendor/bin/pint src tests

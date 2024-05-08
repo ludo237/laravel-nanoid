@@ -20,13 +20,12 @@
   ],
   "require": {
     "php": "^8.3",
-    "illuminate/support": "11.x",
+    "illuminate/contracts": "^11.0",
     "ludo237/nanoid-php": "^1.1"
   },
   "require-dev": {
     "fakerphp/faker": "^1.11",
     "larastan/larastan": "^v2.9",
-    "laravel/framework": "11.x",
     "laravel/pint": "^1.14",
     "mockery/mockery": "^1.6",
     "orchestra/testbench": "^v9.0.4",

@@ -13,6 +13,6 @@ class GenerateCommand extends Command
 
     public function handle(Client $client): void
     {
-        $client->generate();
+        $this->info($client->generate());
     }
 }
