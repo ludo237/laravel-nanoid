@@ -32,3 +32,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [fix: service provider for first release](https://gitlab.com/ludo237/laravel-nanoid/-/commit/76cd34be4448fab308bdbc74d564cf43515f8ca9)
 - [fix: namespace](https://gitlab.com/ludo237/laravel-nanoid/-/commit/61c759fdb3ff62783ec879bcb3be8a366815a689)
 - [fix: ci job](https://gitlab.com/ludo237/laravel-nanoid/-/commit/42490d856b9a0c0a877d0e9552e37b93833579ac)
+
+## v1.0.0 (2024-05-08)
