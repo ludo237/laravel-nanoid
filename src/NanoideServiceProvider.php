@@ -32,12 +32,12 @@ class NanoideServiceProvider extends ServiceProvider
             $config = config('nanoid');
 
             /** @var \Ludo237\Nanoid\Concerns\CoreInterface $core */
-            $core = $config['core'];
+            $core = $config['default_core'];
 
             return (new Client())
                 ->alphabet($config['alphabet'])
                 ->size((int) $config['size'])
-                ->core($core);
+                ->core(new $core);
         });
     }
 }
