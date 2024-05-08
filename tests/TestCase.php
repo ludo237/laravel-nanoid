@@ -11,7 +11,7 @@ abstract class TestCase extends BaseTestCase
     {
         parent::setUp();
     }
-    
+
     protected function getPackageProviders($app): array
     {
         return [NanoideServiceProvider::class];

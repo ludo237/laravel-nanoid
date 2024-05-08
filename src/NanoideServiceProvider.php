@@ -26,5 +26,18 @@ class NanoideServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(
             __DIR__.'/../config/nanoid.php', 'nanoid'
         );
+
+        $this->app->singleton(Client::class, function (Application $app) {
+            /** @var array<string> $config */
+            $config = config('nanoid');
+
+            /** @var \Ludo237\Nanoid\Concerns\CoreInterface $core */
+            $core = $config['core'];
+
+            return (new Client())
+                ->alphabet($config['alphabet'])
+                ->size((int) $config['size'])
+                ->core($core);
+        });
     }
 }
