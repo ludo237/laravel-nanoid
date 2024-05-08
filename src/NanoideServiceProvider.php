@@ -1,9 +1,10 @@
 <?php
 
-namespace Ludo237\Nanoide;
+namespace Ludo237\Nanoid;
 
+use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
-use Ludo237\Nanoide\Commands\GenerateCommand;
+use Ludo237\Nanoid\Commands\GenerateCommand;
 
 class NanoideServiceProvider extends ServiceProvider
 {
