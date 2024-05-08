@@ -10,5 +10,5 @@ coverage:
 phpstan:
 	./vendor/bin/phpstan analyse --level=max src
 
-fix:
-	./vendor/bin/php-cs-fixer fix
+pint:
+	./vendor/bin/pint src
