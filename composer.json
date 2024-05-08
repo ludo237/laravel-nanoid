@@ -1,0 +1,60 @@
+{
+  "name": "ludo237/laravel-nanoide",
+  "description": "Generates nano id for Laravel",
+  "keywords": [
+    "laravel",
+    "nano-id",
+    "naonid",
+    "laravel-package",
+    "open-source"
+  ],
+  "homepage": "https://gitlab.com/ludo237/laravel-nanoide",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Ludo237",
+      "email": "gitlab@ludo237.com",
+      "homepage": "https://gitlab.com/ludo237",
+      "role": "Owner"
+    }
+  ],
+  "require": {
+    "php": "^8.3",
+    "illuminate/support": "11.x",
+    "ludo237/nanoid-php": "^1.1"
+  },
+  "require-dev": {
+    "fakerphp/faker": "^1.11",
+    "larastan/larastan": "^v2.9",
+    "laravel/framework": "11.x",
+    "laravel/pint": "^1.14",
+    "mockery/mockery": "^1.6",
+    "orchestra/testbench": "^v9.0.4",
+    "pestphp/pest": "^2.34"
+  },
+  "autoload": {
+    "psr-4": {
+      "Ludo237\\Nanoide\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Ludo237\\Nanoide\\Tests\\": "tests"
+    }
+  },
+  "minimum-stability": "stable",
+  "config": {
+    "optimize-autoloader": true,
+    "preferred-install": "dist",
+    "sort-packages": true,
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [],
+      "aliases": {}
+    }
+  }
+}

@@ -1,13 +1,114 @@
-# You can override the included template(s) by including variable overrides
-# SAST customization: https://docs.gitlab.com/ee/user/application_security/sast/#customizing-the-sast-settings
-# Secret Detection customization: https://docs.gitlab.com/ee/user/application_security/secret_detection/pipeline/#customization
-# Dependency Scanning customization: https://docs.gitlab.com/ee/user/application_security/dependency_scanning/#customizing-the-dependency-scanning-settings
-# Container Scanning customization: https://docs.gitlab.com/ee/user/application_security/container_scanning/#customizing-the-container-scanning-settings
-# Note that environment variables can be set in several places
-# See https://docs.gitlab.com/ee/ci/variables/#cicd-variable-precedence
 stages:
-- test
-sast:
-  stage: test
-include:
-- template: Security/SAST.gitlab-ci.yml
+  - tests
+  - release
+
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+    - if: $CI_COMMIT_TAG
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $CI_COMMIT_BRANCH == 'master'
+
+.composer::cache:
+  cache:
+    key:
+      files:
+        - composer.lock
+      prefix: $CI_COMMIT_REF_SLUG
+    paths:
+      - .composer-cache/
+    policy: pull-push
+
+composer::install:
+  stage: .pre
+  image: registry.gitlab.com/6go/dx/docker/composer:latest
+  needs: [ ]
+  extends: .composer::cache
+  cache:
+    policy: pull-push
+  artifacts:
+    expose_as: 'Composer install artifacts'
+    untracked: false
+    when: on_success
+    expire_in: 1 day
+    paths:
+      - vendor/
+  before_script:
+    - composer config -g cache-dir "$(pwd)/.composer-cache"
+  script:
+    - composer update --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts -o
+
+phpcpd:
+  stage: .pre
+  image: registry.gitlab.com/6go/dx/docker/php:8.3
+  needs: [ ]
+  before_script:
+    - test -f phpcpd.phar || curl -L https://phar.phpunit.de/phpcpd.phar -o phpcpd.phar
+  script:
+    - php phpcpd.phar ./src/ --min-lines=50
+
+composer::audit:
+  stage: tests
+  image: registry.gitlab.com/6go/dx/docker/composer:latest
+  needs: [ ]
+  extends: .composer::cache
+  cache:
+    policy: pull-push
+  artifacts:
+    expose_as: 'Security Audit'
+    paths:
+      - reports
+    expire_in: 1 days
+    when: on_failure
+  before_script:
+    - mkdir -p ./reports
+  script:
+    - composer audit
+
+phpstan:
+  stage: tests
+  image: registry.gitlab.com/6go/dx/docker/php:8.3
+  needs:
+    - job: composer::install
+      artifacts: true
+  script:
+    - php -d memory_limit=4G ./vendor/bin/phpstan analyse --error-format gitlab --level=max src
+
+pest:
+  stage: tests
+  image: registry.gitlab.com/6go/dx/docker/php:8.3
+  needs:
+    - job: composer::install
+      artifacts: true
+  artifacts:
+    expose_as: 'Pest artifact'
+    paths:
+      - ./reports
+    expire_in: 1 days
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: ./reports/cobertura.xml
+      junit: ./reports/junit.xml
+  before_script:
+    - mkdir -p ./reports
+  script:
+    - XDEBUG_MODE=coverage ./vendor/bin/pest --coverage --coverage-cobertura=./reports/cobertura.xml
+  coverage: /^\s*Cov:\s*\d+\.\d+?%$/
+
+php-cs-fixer:
+  stage: tests
+  image: registry.gitlab.com/6go/dx/docker/php:8.3
+  needs:
+    - job: composer::install
+      artifacts: true
+  artifacts:
+    expose_as: 'PHP-CS-Fixer artifact'
+    paths:
+      - reports
+    expire_in: 1 days
+    when: on_failure
+  before_script:
+    - mkdir -p reports
+  script:
+    - ./vendor/bin/php-cs-fixer --format=json check
